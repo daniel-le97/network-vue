@@ -3,7 +3,7 @@
     class="cover-img"
     :style="{ backgroundImage: `url(${profile.coverImg})` }"
   >
-    <img :src="profile.picture" :alt="profile.name" />
+    <img :src="profile.picture" :alt="profile.name" class="img-fluid"/>
     <h1>{{ profile.name }}</h1>
   </div>
 </template>

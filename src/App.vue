@@ -10,15 +10,17 @@
     <main>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-2 bg-primary">
+          <div class="col-2 bg-primary d-none d-md-block">
             <div class="mt-2">
-              <Login class="mt-5" />
+              <Login />
             </div>
           </div>
-          <div class="col-8 min-vh-100">
+          <div class="col-md-8 min-vh-100 p-0">
             <router-view />
           </div>
-          <div class="col-2 bg-warning"></div>
+          <div class="col-2 bg-warning d-none d-md-block">
+            <Lads v-for="l in lads" :lad="l"/>
+          </div>
         </div>
       </div>
     </main>
@@ -26,19 +28,33 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { AppState } from "./AppState";
 import Navbar from "./components/Navbar.vue";
 import Login from "./components/Login.vue";
 import Login1 from "./components/Login.vue";
+import Lads from "./components/Lads.vue";
+import Pop from "./utils/Pop.js";
+import { ladsService } from "./services/LadsService.js";
 
 export default {
   setup() {
+    async function getLads() {
+      try {
+        await ladsService.getLads()
+      } catch (error) {
+        Pop.error(error, "[GetLads]");
+      }
+    }
+    onMounted(() => {
+      getLads();
+    });
     return {
       appState: computed(() => AppState),
+      lads: computed(() => AppState.lads),
     };
   },
-  components: { Navbar, Login, Login1 },
+  components: { Navbar, Login, Login1, Lads },
 };
 </script>
 <style lang="scss">
