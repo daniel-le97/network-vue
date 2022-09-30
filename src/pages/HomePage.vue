@@ -21,7 +21,9 @@ export default {
         Pop.error(error, "[getPosts]");
       }
     }
-    onMounted(() => getPosts());
+    onMounted(() => {
+      getPosts();
+    });
     return {
       posts: computed(() => AppState.posts),
     };

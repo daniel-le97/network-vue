@@ -8,7 +8,7 @@ class PostsService {
     const res = await api.get("/api/posts");
     console.log(res.data.posts);
     AppState.posts = res.data.posts.map((p) => new Post(p));
-    logger.log(AppState.posts);
+    logger.log(AppState.posts , 'getPost()');
   }
 }
 export const postsService = new PostsService();
