@@ -1,6 +1,6 @@
 <template>
   <div class="my-5">
-    <img :src="lad.tall" alt="" class="img-fluid" />
+    <img :src="lad.tall" alt="" class="img-fluid elevation-5" />
 
   </div>
 </template>

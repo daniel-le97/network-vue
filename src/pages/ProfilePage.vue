@@ -8,6 +8,12 @@
           <ProfileDetail class="" :profile="profile" />
         </div>
       </div>
+      <div class="row ">
+        <div class="col-12 d-flex justify-content-center gap-5">
+          <button class="btn btn-info" @click="changePost(previousPage)" :disabled="!previousPage">Newer Post</button>
+          <button class="btn btn-success" @click="changePost(nextPage)" :disabled="!nextPage">Older Post</button>
+        </div>
+      </div>
     </div>
     <PostsCard v-for="p in posts" :key="p.id" :post="p" />
     <!--  -->
@@ -26,6 +32,7 @@ import ProfileDetail from "../components/ProfileDetail.vue";
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import PostsCard from "../components/PostsCard.vue";
+import { postsService } from "../services/PostsService.js";
 
 export default {
   setup() {
@@ -51,6 +58,16 @@ export default {
     return {
       profile: computed(() => AppState.activeProfile),
       posts: computed(() => AppState.posts),
+      previousPage: computed(()=> AppState.previousPage),
+      nextPage: computed(()=> AppState.nextPage),
+      async changePost(pageUrl){
+        try {
+            await postsService.getPosts(pageUrl)
+          } catch (error) {
+            console.error('[]',error)
+            Pop.error(error)
+          }
+      }
     };
   },
   components: { ProfileDetail, PostsCard },

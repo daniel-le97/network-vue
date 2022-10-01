@@ -1,9 +1,28 @@
 <template>
+  <div class="d-flex justify-content-center gap-5 mt-3">
+    <button
+      class="btn btn-info"
+      @click="changePage(previousPage)"
+      :disabled="!previousPage"
+    >
+      Older
+    </button>
+    <button
+      class="btn btn-success"
+      @click="changePage(nextPage)"
+      :disabled="!nextPage"
+    >
+      NEXT
+    </button>
+  </div>
+  <div>
+    <PostForm/>
+  </div>
   <div>
     <PostsCard v-for="p in posts" :post="p" />
   </div>
 </template>
-
+0
 <script>
 import { computed } from "@vue/reactivity";
 import { onMounted } from "vue";
@@ -11,6 +30,7 @@ import { AppState } from "../AppState.js";
 import { postsService } from "../services/PostsService.js";
 import Pop from "../utils/Pop.js";
 import PostsCard from "../components/PostsCard.vue";
+import PostForm from "../components/PostForm.vue";
 
 export default {
   setup() {
@@ -26,9 +46,19 @@ export default {
     });
     return {
       posts: computed(() => AppState.posts),
+      nextPage: computed(() => AppState.nextPage),
+      previousPage: computed(() => AppState.previousPage),
+      async changePage(pageUrl) {
+        try {
+          await postsService.getPosts(pageUrl);
+        } catch (error) {
+          console.error("[]", error);
+          Pop.error(error);
+        }
+      },
     };
   },
-  components: { PostsCard },
+  components: { PostsCard, PostForm },
 };
 </script>
 

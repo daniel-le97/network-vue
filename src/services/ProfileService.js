@@ -12,8 +12,12 @@ class ProfilesService {
   }
   async getPostsByProfileId(id) {
     const res = await api.get(`/api/profiles/${id}/posts`);
+    console.log(res.data);
+    AppState.nextPage = res.data.older;
+    AppState.previousPage = res.data.newer;
     AppState.posts = res.data.posts.map((p) => new Post(p));
-    logger.log(AppState.posts);
+
+    // logger.log(AppState.posts);
     // logger.log(AppState.posts);
   }
 }

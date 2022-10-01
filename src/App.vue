@@ -15,7 +15,7 @@
               <Login />
             </div>
           </div>
-          <div class="col-md-8 min-vh-100 p-0">
+          <div class="col-md-8  p-0">
             <router-view />
           </div>
           <div class="col-2 bg-warning d-none d-md-block">

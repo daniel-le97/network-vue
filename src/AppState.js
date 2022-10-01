@@ -14,4 +14,6 @@ export const AppState = reactive({
   activeProfile: null,
   /** @type {import('./models/Lad.js).Lad []}*/
   lads: [],
+  img: null,
+  activePost: null
 });
