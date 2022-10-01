@@ -61,6 +61,16 @@
               name="resume"
             />
           </div>
+          <div class="checkbox">
+            <label for="graduated" >Graduated:{{editable.graduated}}</label>
+            <input
+              type="checkbox"
+              class="form-control"
+              v-model="editable.graduated"
+              name="graduated"
+              :class="{'bg-primary' : editable.graduated}"
+            />
+          </div>
           <div>
             <label for="bio">Bio:</label>
             <textarea
@@ -68,7 +78,7 @@
               class="form-control"
               v-model="editable.bio"
               name="bio"
-              rows="8"
+              rows="4"
               style="resize: none"
             ></textarea>
           </div>
@@ -114,4 +124,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .checkbox{
+    width: 5px;
+  }
+</style>

@@ -16,13 +16,12 @@
     </button>
   </div>
   <div>
-    <PostForm/>
+    <PostForm />
   </div>
   <div>
     <PostsCard v-for="p in posts" :post="p" />
   </div>
 </template>
-0
 <script>
 import { computed } from "@vue/reactivity";
 import { onMounted } from "vue";
@@ -45,6 +44,7 @@ export default {
       getPosts();
     });
     return {
+      user: computed(() => AppState.user),
       posts: computed(() => AppState.posts),
       nextPage: computed(() => AppState.nextPage),
       previousPage: computed(() => AppState.previousPage),

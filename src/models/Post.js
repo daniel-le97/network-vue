@@ -10,7 +10,9 @@ export class Post {
     this.likes = data.likes.map(l => new Like(l))
     this.createdAt = new Date(data.createdAt).toLocaleDateString("en-US", {
       month: "short",
-      year: "2-digit",
+      day: 'numeric',
+      year: "numeric",
+      hour: 'numeric'
     });
     this.creator = new Account(data.creator);
   }

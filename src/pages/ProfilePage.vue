@@ -40,6 +40,7 @@ export default {
     async function getProfileById() {
       try {
         await profilesService.getProfileById(route.params.id);
+        document.documentElement.scrollTop = 0
       } catch (error) {
         Pop.error(error, "[GettingProfile]");
       }

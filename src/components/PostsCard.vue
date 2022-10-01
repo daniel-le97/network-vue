@@ -8,14 +8,15 @@
       <div class="dropdown" v-if="user.id == post.creator.id">
         <i
           class="mdi mdi-pencil-off"
-         
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         ></i>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item">Edit</a></li>
-          <li><a class="dropdown-item" @click="deletePost(post.id)">Delete</a></li>
+          <li>
+            <a class="dropdown-item" @click="deletePost(post.id)">Delete</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -27,10 +28,31 @@
     </div>
     <div class="card-footer d-flex justify-content-between">
       <span class="align-self-center">{{ post.createdAt }}</span>
-      <i class="mdi mdi-heart fs-1 text-danger position-relative"
-      type="button"
-       @click="likePost(post.id)"><span class="fs-4 text-white position-absolute center">{{ post.likesLength }}</span></i
-      >
+      <div class="d-flex align-items-center">
+        <span class="fs-4">{{ post.likesLength }} </span>
+        <button
+          class="btn btn-small p-0 border-0"
+          type="button"
+          :disabled="!user"
+          @click="likePost(post.id)"
+        >
+          <i class="mdi mdi-heart fs-3 text-danger"></i>
+        </button>
+      </div>
+      <!-- <div class="d-flex align-items-center" v-else>
+        <span class="fs-4">{{ post.likesLength }}</span>
+        <button class="btn btn-small p-0 border-0">
+          <i class="mdi mdi-heart fs-3 text-danger"></i>
+        </button>
+      </div> -->
+      <!-- <i
+        class="mdi mdi-heart fs-1 text-danger"
+        type="button"
+        @click="likePost(post.id)"
+        ><span class="fs-4 ">{{
+          post.likesLength
+        }}</span></i
+      > -->
     </div>
   </div>
 </template>
@@ -39,6 +61,7 @@
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState.js";
 import { Post } from "../models/Post.js";
+import { AuthService } from "../services/AuthService.js";
 import { postsService } from "../services/PostsService.js";
 import Pop from "../utils/Pop.js";
 import PostCreator from "./PostCreator.vue";
@@ -52,23 +75,21 @@ export default {
   },
   setup(props) {
     return {
-       async deletePost(id){
+      async deletePost(id) {
         try {
-            await postsService.deletePost(id)
-          } catch (error) {
-            Pop.error(error,'[deletePost]')
-          }
-       
-        },
-         async likePost(id){
-          try {
-              await postsService.likePost(id)
-            } catch (error) {
-              Pop.error(error,'[likePost]')
-            }
-         
-          },
-        user: computed(()=> AppState.account)
+          await postsService.deletePost(id);
+        } catch (error) {
+          Pop.error(error, "[deletePost]");
+        }
+      },
+      async likePost(id) {
+        try {
+          await postsService.likePost(id);
+        } catch (error) {
+          Pop.error(error, "[likePost]");
+        }
+      },
+      user: computed(() => AppState.account),
     };
   },
   components: { PostCreator },
@@ -76,8 +97,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .center{
-    top: 12px;
-    left: 13px;
-  }
+.center {
+  top: 12px;
+  left: 13px;
+}
 </style>

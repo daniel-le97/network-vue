@@ -1,5 +1,5 @@
 <template>
-  <body class="debug">
+  <body>
     <header class="container-fluid">
       <div class="row justify-content-end">
         <div class="col-12 p-0">
@@ -18,8 +18,11 @@
           <div class="col-md-8  p-0">
             <router-view />
           </div>
-          <div class="col-2 bg-warning d-none d-md-block">
-            <Lads v-for="l in lads" :lad="l"/>
+          <div class="col-2 p-0 d-none d-md-block">
+            <div class="bg-opacity-50 bg-black p-5">
+
+              <Lads v-for="l in lads" :lad="l"/>
+            </div>
           </div>
         </div>
       </div>
@@ -58,21 +61,6 @@ export default {
 };
 </script>
 <style lang="scss">
-body.debug .container,
-body.debug .container-fluid {
-  outline: 2px double blue;
-  outline-offset: -2px;
-}
-
-body.debug .row {
-  outline: 2px dashed red;
-  outline-offset: -2px;
-}
-
-body.debug [class*="col-"] {
-  outline: 2px dotted forestgreen;
-  outline-offset: -3px;
-}
 .height {
   min-height: 100vh;
 }

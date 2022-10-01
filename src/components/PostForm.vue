@@ -1,9 +1,9 @@
 <template>
- <div class="card   elevation-3 mx-4 my-5">
-<div class="card-header text-center">
-  <span>Create a Post</span>
-</div>
-            <div class="card-body form-floating">
+  <div class="card elevation-3 mx-4 my-5">
+    <div class="card-header text-center">
+      <span>Create a Post</span>
+    </div>
+    <div class="card-body form-floating">
       <form @submit.prevent="handleSubmit()">
         <div class="form-floating my-1">
           <input
@@ -27,36 +27,46 @@
           <label for="floatingTextarea2">Comment</label>
         </div>
         <div>
-          <button class="btn btn-warning">cancel</button>
-          <button type="submit" class="btn btn-primary">submit</button>
+          <button class="btn btn-warning" v-if="user.isAuthenticated">cancel</button>
+          <button type="submit" class="btn btn-primary" v-if="user.isAuthenticated">submit</button>
+          <button  class="btn btn-primary" v-else @click="login">
+            login
+          </button>
         </div>
       </form>
-            </div>
-          </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-import { postsService } from '../services/PostsService.js';
-import Pop from '../utils/Pop.js';
-
+import { ref } from "vue";
+import { postsService } from "../services/PostsService.js";
+import Pop from "../utils/Pop.js";
+import { AppState } from "../AppState";
+import { AuthService } from "../services/AuthService.js";
+import { computed } from "@vue/reactivity";
 export default {
   setup() {
-    const editable = ref({})
+    const editable = ref({});
     return {
+      user: computed(() => AppState.user),
       editable,
-       async handleSubmit(){
+      async handleSubmit() {
         try {
-            await postsService.createPost(editable.value)
-          } catch (error) {
-            Pop.error(error, '[handleSubmit]')
-          }
-       
+          
+          await postsService.createPost(editable.value);
+        } catch (error) {
+          Pop.error(error, "[handleSubmit]");
         }
+      },
+      async login() {
+        AuthService.loginWithPopup()
+      },
     };
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<!-- v-if="!user.isAuthenticated" -->
 
+<style lang="scss" scoped></style>
