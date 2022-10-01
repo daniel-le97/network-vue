@@ -1,21 +1,25 @@
 <template>
   <div class="about text-center">
-    <h1>Welcome {{ account.name }}</h1>
-    <img class="rounded" :src="account.picture" alt="" />
-    <p>{{ account.email }}</p>
+    <ProfileDetail :profile="account" />
+  </div>
+  <div>
+    <AccountForm/>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
-import { AppState } from '../AppState'
+import { computed } from "vue";
+import { AppState } from "../AppState";
+import ProfileDetail from "../components/ProfileDetail.vue";
+import AccountForm from "../components/AccountForm.vue";
 export default {
   setup() {
     return {
-      account: computed(() => AppState.account)
-    }
-  }
-}
+      account: computed(() => AppState.account),
+    };
+  },
+  components: { ProfileDetail, AccountForm },
+};
 </script>
 
 <style scoped>

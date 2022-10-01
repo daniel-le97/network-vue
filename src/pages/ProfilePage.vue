@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12 p-0">
-          <ProfileDetail class="" :profile="profile" />
+          <ProfileDetail :profile="profile" />
         </div>
       </div>
       <div class="row ">

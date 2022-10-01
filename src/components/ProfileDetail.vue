@@ -14,7 +14,7 @@
       <h1 class="text-shadow text-center">{{ profile.name }}</h1>
       <div class="text-shadow d-flex justify-content-center align-items-center gap-5">
       <a :href="profile.github" v-if="profile.github"><i class="mdi mdi-github fs-1 text-shadow"></i></a>
-      <a :href="profile.linkedin" v-if="profile.linkedin"><i class="mdi mdi-linkedin fs-1 text-shadow">{{profile.linkedin}}</i></a>
+      <a :href="profile.linkedin" v-if="profile.linkedin"><i class="mdi mdi-linkedin fs-1 text-shadow"></i></a>
       <a href="https://boisecodeworks.com/" v-if="profile.graduated == true"><i class="mdi mdi-school fs-1 text-shadow"></i></a>
       <i class="mdi mdi-school fs-1" v-if="profile.resume" ></i>      
       </div>
