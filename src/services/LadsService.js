@@ -7,7 +7,7 @@ class LadsService {
   async getLads() {
     const res = await api.get("/api/ads");
    
-    logger.log(res.data);
+    // logger.log(res.data);
     AppState.lads = res.data.map((l) => new Lad(l));
     // logger.log(AppState.lads);
   }

@@ -39,7 +39,7 @@
     </div>
   </span>
   <div class="mt-5">
-    <profile-detail :profile="account" />
+    <profile-detail :profile="account" v-if="account"/>
 
   </div>
 </template>

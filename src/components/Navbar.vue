@@ -1,7 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link
-      @click="refresh()"
+    @click="refreshPage()"
+      
       class="navbar-brand d-flex"
       :to="{ name: 'Home' }"
     >
@@ -35,16 +36,28 @@
 </template>
 
 <script>
+import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState.js";
+import { router } from "../router.js";
+import { postsService } from "../services/PostsService.js";
+import Pop from "../utils/Pop.js";
 import Login from "./Login.vue";
 import SearchForm from "./SearchForm.vue";
 export default {
   setup() {
+    const router = useRouter()
     return {
-      refresh() {
-        AppState.term = ''
-        window.reload();
-        return false
+     async refreshPage() {
+        try {
+          AppState.posts = []
+          AppState.profiles = []
+            await router.push({name:'Home',})
+            await postsService.getPosts()
+          } catch (error) {
+            Pop.error(error)
+          }
+    
+        
       },
     };
   },

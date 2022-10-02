@@ -19,9 +19,6 @@
     <PostForm v-if="user"/>
   </div>
   <div>
-    <ProfilesCard v-if="profiles"/>
-  </div>
-  <div>
     <PostsCard v-for="p in posts" :post="p" />
   </div>
 </template>

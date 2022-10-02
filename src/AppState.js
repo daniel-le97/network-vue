@@ -19,5 +19,7 @@ export const AppState = reactive({
   totalPages: null,
   /** @type {import('./models/Account.js).Account []}*/
   profiles: [],
-  likes:[]
+  likes: [],
+  activePost: null,
+  term: "",
 });

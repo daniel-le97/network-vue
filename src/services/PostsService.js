@@ -8,6 +8,7 @@ import { api, postServer } from "./AxiosService.js";
 
 class PostsService {
   async getPosts(pageUrl = "") {
+    AppState.posts = [];
     const res = await postServer.get(pageUrl);
     // logger.log(res.data);
     console.log(res.data.posts);
@@ -40,17 +41,13 @@ class PostsService {
   async likePost(id) {
     const res = await api.post(`/api/posts/${id}/like`, id);
     console.log(res.data);
+   
     let thisPost = AppState.posts.findIndex((p) => p.id == id);
     let like = new Post(res.data);
     console.log(like);
 
-
-
-    
-  
     AppState.posts.splice(thisPost, 1, like);
-    // this.getLikes();
-    
+    this.getLikes();
   }
   async getLikes() {
     AppState.posts.forEach((p) => {
@@ -60,7 +57,6 @@ class PostsService {
         }
       });
     });
-    
   }
   async getPostsBySearchTerm(term, page = "") {
     const res = await postServer.get("", {
@@ -70,10 +66,21 @@ class PostsService {
       },
     });
     console.log(res);
+    AppState.posts = [];
     AppState.posts = res.data.posts.map((p) => new Post(p));
     AppState.nextPage = res.data.older;
     AppState.previousPage = res.data.newer;
     AppState.totalPages = res.data.totalPages;
   }
+  async testFunction(term){
+    console.log(term);
+  }
+  // // async editPost(id){
+  // //   const res = await api.get(`/api/posts/${id}`);
+  // //   AppState.activePost = new Post(res.data)
+  // //   console.log(AppState.activePost)
+  // this would still need a  handleSubmit to put
+  
+  // // }
 }
 export const postsService = new PostsService();

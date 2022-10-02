@@ -1,11 +1,11 @@
 <template>
-  <div class="card elevation-3 mx-4 my-2">
+  <div class="card elevation-3 mx-4 my-2" v-if="post">
     <div class="card-header d-flex justify-content-between">
       <div class="d-flex align-items-center">
         <PostCreator :creator="post.creator" />
         <span class="ms-3">{{ post.creator.name }}</span>
       </div>
-      <div class="dropdown" v-if="user.id == post.creator.id">
+      <div class="dropdown" >
         <i
           class="mdi mdi-pencil-off"
           role="button"
@@ -13,7 +13,7 @@
           aria-expanded="false"
         ></i>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item">Edit</a></li>
+         
           <li>
             <a class="dropdown-item" @click="deletePost(post.id)">Delete</a>
           </li>
@@ -43,22 +43,9 @@
           <i v-else class="mdi mdi-heart fs-3 text-primary"></i>
         </button>
       </div>
-      <!-- <div class="d-flex align-items-center" v-else>
-        <span class="fs-4">{{ post.likesLength }}</span>
-        <button class="btn btn-small p-0 border-0">
-          <i class="mdi mdi-heart fs-3 text-danger"></i>
-        </button>
-      </div> -->
-      <!-- <i
-        class="mdi mdi-heart fs-1 text-danger"
-        type="button"
-        @click="likePost(post.id)"
-        ><span class="fs-4 ">{{
-          post.likesLength
-        }}</span></i
-      > -->
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -69,6 +56,9 @@ import { AuthService } from "../services/AuthService.js";
 import { postsService } from "../services/PostsService.js";
 import Pop from "../utils/Pop.js";
 import PostCreator from "./PostCreator.vue";
+import { ref, watchEffect } from "vue";
+import PostForm from "./PostForm.vue";
+
 
 export default {
   props: {
@@ -78,7 +68,23 @@ export default {
     },
   },
   setup(props) {
+    // const editable = ref({})
+    //  watchEffect(() => {
+    //   editable.value = { ...AppState.activePost };
+    // });
     return {
+      // editable,
+      //  async editPost(id){
+      //   try {
+      //       await postsService.editPost(id)
+      //     } catch (error) {
+      //       console.error('[]',error)
+      //       Pop.error(error)
+      //     }
+        
+        
+       
+      //   },
       async deletePost(id) {
         try {
           await postsService.deletePost(id);
@@ -98,7 +104,7 @@ export default {
       account: () => AppState.account,
     };
   },
-  components: { PostCreator },
+  components: { PostCreator, PostForm },
 };
 </script>
 

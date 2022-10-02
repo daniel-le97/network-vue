@@ -10,8 +10,8 @@
     <main>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-2 bg-primary d-none d-md-block">
-            <div class="mt-2">
+          <div class="col-2  d-none d-md-block p-0">
+            <div class="mt-2 bg-dark">
               <Login />
             </div>
           </div>
@@ -19,7 +19,7 @@
             <router-view />
           </div>
           <div class="col-2 p-0 d-none d-md-block">
-            <div class="bg-opacity-50 bg-black p-5">
+            <div class="">
 
               <Lads v-for="l in lads" :lad="l"/>
             </div>

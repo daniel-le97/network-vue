@@ -55,6 +55,7 @@ export default {
         try {
           
           await postsService.createPost(editable.value);
+          editable.value = ''
         } catch (error) {
           Pop.error(error, "[handleSubmit]");
         }
