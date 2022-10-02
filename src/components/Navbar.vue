@@ -14,8 +14,10 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon">
+      </span>
     </button>
+    <search-form />
     <!-- <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
@@ -30,13 +32,14 @@
 </template>
 
 <script>
-import Login from './Login.vue'
+import Login from "./Login.vue";
+import SearchForm from "./SearchForm.vue";
 export default {
   setup() {
-    return {}
+    return {};
   },
-  components: { Login }
-}
+  components: { Login, SearchForm },
+};
 </script>
 
 <style scoped>

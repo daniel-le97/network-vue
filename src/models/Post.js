@@ -15,5 +15,6 @@ export class Post {
       hour: 'numeric'
     });
     this.creator = new Account(data.creator);
+    this.likedAlready = data.likedAlready || false
   }
 }

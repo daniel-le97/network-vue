@@ -16,7 +16,10 @@
     </button>
   </div>
   <div>
-    <PostForm />
+    <PostForm v-if="user"/>
+  </div>
+  <div>
+    <ProfilesCard v-if="profiles"/>
   </div>
   <div>
     <PostsCard v-for="p in posts" :post="p" />
@@ -30,6 +33,7 @@ import { postsService } from "../services/PostsService.js";
 import Pop from "../utils/Pop.js";
 import PostsCard from "../components/PostsCard.vue";
 import PostForm from "../components/PostForm.vue";
+import ProfilesCard from "../components/ProfilesCard.vue";
 
 export default {
   setup() {
@@ -48,6 +52,7 @@ export default {
       posts: computed(() => AppState.posts),
       nextPage: computed(() => AppState.nextPage),
       previousPage: computed(() => AppState.previousPage),
+      profiles: computed(() => AppState.profiles),
       async changePage(pageUrl) {
         try {
           await postsService.getPosts(pageUrl);
@@ -58,7 +63,7 @@ export default {
       },
     };
   },
-  components: { PostsCard, PostForm },
+  components: { PostsCard, PostForm, ProfilesCard },
 };
 </script>
 

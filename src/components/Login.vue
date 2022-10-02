@@ -38,25 +38,28 @@
       </div>
     </div>
   </span>
+  <profile-detail :profile="account"/>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from '../AppState'
 import { AuthService } from '../services/AuthService'
+import ProfileDetail from './ProfileDetail.vue'
 export default {
-  setup() {
-    return {
-      user: computed(() => AppState.user),
-      account: computed(() => AppState.account),
-      async login() {
-        AuthService.loginWithPopup()
-      },
-      async logout() {
-        AuthService.logout({ returnTo: window.location.origin })
-      }
-    }
-  }
+    setup() {
+        return {
+            user: computed(() => AppState.user),
+            account: computed(() => AppState.account),
+            async login() {
+                AuthService.loginWithPopup();
+            },
+            async logout() {
+                AuthService.logout({ returnTo: window.location.origin });
+            }
+        };
+    },
+    components: { ProfileDetail }
 }
 </script>
 

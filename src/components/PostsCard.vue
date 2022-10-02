@@ -33,10 +33,14 @@
         <button
           class="btn btn-small p-0 border-0"
           type="button"
-          :disabled="!user"
+          :disabled="!user.isAuthenticated"
           @click="likePost(post.id)"
         >
-          <i class="mdi mdi-heart fs-3 text-danger"></i>
+          <i
+            class="fs-3 text-danger mdi mdi-heart"
+            v-if="post.likedAlready == true"
+          ></i>
+          <i v-else class="mdi mdi-heart fs-3 text-primary"></i>
         </button>
       </div>
       <!-- <div class="d-flex align-items-center" v-else>
@@ -89,7 +93,9 @@ export default {
           Pop.error(error, "[likePost]");
         }
       },
-      user: computed(() => AppState.account),
+      user: computed(() => AppState.user),
+      posts: computed(() => AppState.posts),
+      account: () => AppState.account,
     };
   },
   components: { PostCreator },

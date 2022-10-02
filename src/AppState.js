@@ -15,5 +15,9 @@ export const AppState = reactive({
   /** @type {import('./models/Lad.js).Lad []}*/
   lads: [],
   img: null,
-  activePost: null
+  activePost: null,
+  totalPages: null,
+  /** @type {import('./models/Account.js).Account []}*/
+  profiles: [],
+  likes:[]
 });

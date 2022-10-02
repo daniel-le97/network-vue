@@ -39,6 +39,7 @@ import Login1 from "./components/Login.vue";
 import Lads from "./components/Lads.vue";
 import Pop from "./utils/Pop.js";
 import { ladsService } from "./services/LadsService.js";
+import { postsService } from "./services/PostsService.js";
 
 export default {
   setup() {
@@ -49,8 +50,16 @@ export default {
         Pop.error(error, "[GetLads]");
       }
     }
+    // async function getLikes(){
+    //   try {
+    //       await postsService.getLikes()
+    //     } catch (error) {
+    //       Pop.error(error)
+    //     }
+    // }
     onMounted(() => {
       getLads();
+      // getLikes()
     });
     return {
       appState: computed(() => AppState),
