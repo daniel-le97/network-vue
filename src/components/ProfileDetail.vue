@@ -12,18 +12,26 @@
     </div>
     <div>
       <h1 class="text-shadow text-center">{{ profile.name }}</h1>
-      <div class="text-shadow d-flex justify-content-center align-items-center gap-5">
-      <a :href="profile.github" v-if="profile.github"><i class="mdi mdi-github fs-1 text-shadow"></i></a>
-      <a :href="profile.linkedin" v-if="profile.linkedin"><i class="mdi mdi-linkedin fs-1 text-shadow"></i></a>
-      <a href="https://boisecodeworks.com/" v-if="profile.graduated == true"><i class="mdi mdi-school fs-1 text-shadow"></i></a>
-      <i class="mdi mdi-school fs-1" v-if="profile.resume" ></i>      
+      <div
+        class="text-shadow d-flex justify-content-center align-items-center gap-5"
+      >
+        <a :href="profile.github" v-if="profile.github"
+          ><i class="mdi mdi-github fs-1 text-shadow"></i
+        ></a>
+        <a :href="profile.linkedin" v-if="profile.linkedin"
+          ><i class="mdi mdi-linkedin fs-1 text-shadow"></i
+        ></a>
+        <a href="https://boisecodeworks.com/" v-if="profile.graduated == true"
+          ><i class="mdi mdi-school fs-1 text-shadow"></i
+        ></a>
+        <i class="mdi mdi-school fs-1" v-if="profile.resume"></i>
       </div>
     </div>
   </div>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-8">
-        {{profile.bio}}
+      <div class="col-8" v-if="profile.id != account.id">
+        {{ profile.bio }}
       </div>
     </div>
   </div>
@@ -43,7 +51,7 @@ export default {
   },
   setup() {
     return {
-      
+      account: computed(() => AppState.account),
     };
   },
 };
@@ -62,12 +70,12 @@ export default {
   width: 50vh;
 }
 
-.text-shadow{
+.text-shadow {
   color: aliceblue;
   text-shadow: 1px 1px black, 0px 0px 5px salmon;
   font-weight: bold;
-  letter-spacing: 0.08rem
-  
+  letter-spacing: 0.08rem;
+
   /* Second Color  in text-shadow is the blur */
 }
 </style>

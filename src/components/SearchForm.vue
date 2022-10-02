@@ -22,6 +22,7 @@
 
 <script>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { postsService } from '../services/PostsService.js';
 import { profilesService } from '../services/ProfileService.js';
 import { logger } from '../utils/Logger.js';
@@ -30,10 +31,12 @@ import Pop from '../utils/Pop.js';
 export default {
   setup() {
     const editable = ref({})
+    const router = useRouter()
     return {
       editable,
        async handleSubmit(){
         try {
+          await router.push('/search')
           await profilesService.getProfilesBySearchTerm(editable.value.term)
             // await postsService.getPostsBySearchTerm(editable.value.term)
           } catch (error) {

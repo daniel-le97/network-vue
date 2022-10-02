@@ -1,3 +1,4 @@
+import { watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { Like } from "../models/Like.js";
 import { Post } from "../models/Post.js";
@@ -38,10 +39,18 @@ class PostsService {
   }
   async likePost(id) {
     const res = await api.post(`/api/posts/${id}/like`, id);
+    console.log(res.data);
     let thisPost = AppState.posts.findIndex((p) => p.id == id);
+    let like = new Post(res.data);
+    console.log(like);
+
+
+
+    
   
-    this.getLikes();
-    AppState.posts.splice(thisPost, 1, new Post(res.data));
+    AppState.posts.splice(thisPost, 1, like);
+    // this.getLikes();
+    
   }
   async getLikes() {
     AppState.posts.forEach((p) => {
@@ -51,6 +60,7 @@ class PostsService {
         }
       });
     });
+    
   }
   async getPostsBySearchTerm(term, page = "") {
     const res = await postServer.get("", {

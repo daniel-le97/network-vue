@@ -38,7 +38,10 @@
       </div>
     </div>
   </span>
-  <profile-detail :profile="account"/>
+  <div class="mt-5">
+    <profile-detail :profile="account" />
+
+  </div>
 </template>
 
 <script>

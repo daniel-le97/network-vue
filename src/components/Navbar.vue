@@ -1,6 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <router-link
+      @click="refresh()"
+      class="navbar-brand d-flex"
+      :to="{ name: 'Home' }"
+    >
       <div class="d-flex flex-column align-items-center">
         <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
       </div>
@@ -14,8 +18,7 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon">
-      </span>
+      <span class="navbar-toggler-icon"> </span>
     </button>
     <search-form />
     <!-- <div class="collapse navbar-collapse" id="navbarText">
@@ -32,11 +35,18 @@
 </template>
 
 <script>
+import { AppState } from "../AppState.js";
 import Login from "./Login.vue";
 import SearchForm from "./SearchForm.vue";
 export default {
   setup() {
-    return {};
+    return {
+      refresh() {
+        AppState.term = ''
+        window.reload();
+        return false
+      },
+    };
   },
   components: { Login, SearchForm },
 };
