@@ -14,7 +14,7 @@
         ></i>
         <ul class="dropdown-menu">
           <li>
-            <a class="dropdown-item" @click="deletePost(post.id)">Delete</a>
+            <a class="dropdown-item" @click="deletePost(post.id)">Delete?</a>
           </li>
         </ul>
       </div>

@@ -85,9 +85,9 @@ class PostsService {
     AppState.previousPage = res.data.newer;
     AppState.totalPages = res.data.totalPages;
   }
-  async testFunction(term) {
-    console.log(term);
-  }
+  // async testFunction(term) {
+  //   console.log(term);
+  // }
   // // async editPost(id){
   // //   const res = await api.get(`/api/posts/${id}`);
   // //   AppState.activePost = new Post(res.data)
