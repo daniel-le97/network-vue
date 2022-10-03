@@ -19,7 +19,7 @@ class PostsService {
     AppState.totalPages = res.data.totalPages;
 
     // console.log(AppState.posts);
-    this.getLikes();
+    // this.getLikes();
     // console.log(AppState.nextPage);
     // console.log(AppState.previousPage);
     // logger.log(AppState.posts , 'getPost()');
@@ -48,7 +48,7 @@ class PostsService {
     // console.log(like);
 
     AppState.posts.splice(thisPost, 1, new Post(res.data));
-    this.getLikes();
+    // this.getLikes();
     // AppState.posts.forEach((p) => {
     //   let thisId = AppState.account.id;
     //   p.likes.forEach((l) => {
@@ -60,17 +60,17 @@ class PostsService {
     // });
     // this.getLikes();
   }
-  getLikes() {
-    AppState.posts.forEach((p) => {
-      let thisId = AppState.account.id;
-      p.likes.forEach((l) => {
-        if (l.id == thisId) {
-          p.likedAlready = true;
-        }
-      });
-      // console.log(AppState.posts);
-    });
-  }
+  // getLikes() {
+  //   AppState.posts.forEach((p) => {
+  //     let thisId = AppState.account.id;
+  //     p.likes.forEach((l) => {
+  //       if (l.id == thisId) {
+  //         p.likedAlready = true;
+  //       }
+  //     });
+  //     // console.log(AppState.posts);
+  //   });
+  // }
   async getPostsBySearchTerm(term, page = "") {
     const res = await postServer.get("", {
       params: {

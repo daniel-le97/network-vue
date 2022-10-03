@@ -31,7 +31,7 @@
     />
     <div class="card-footer d-flex justify-content-between">
       <span class="align-self-center">{{ post.createdAt }}</span>
-      <div class="d-flex align-items-end" v-if="post.likedAlready == true">
+      <div class="d-flex align-items-end" v-if="liked">
         <span class="fs-4">{{ post.likesLength }} </span>
         <button
           class="btn btn-small p-0 border-0"
@@ -44,10 +44,7 @@
           </div>
         </button>
       </div>
-      <div
-        class="d-flex align-items-end"
-        v-else-if="post.likedAlready == false"
-      >
+      <div class="d-flex align-items-end" v-else-if="!liked">
         <span class="fs-4">{{ post.likesLength }} </span>
         <button
           class="btn btn-small p-0 border-0"
@@ -114,7 +111,7 @@ export default {
       async likePost() {
         try {
           await postsService.likePost(props.post.id);
-          postsService.getLikes();
+          // postsService.getLikes();
         } catch (error) {
           Pop.error(error, "[likePost]");
         }
@@ -122,6 +119,10 @@ export default {
       user: computed(() => AppState.user),
       posts: computed(() => AppState.posts),
       account: computed(() => AppState.account),
+      liked: computed(() => props.post.likeIds.includes(AppState.account?.id)),
+      isLiked: computed(() => {
+        //logic to find account id in array of like ids, return true or false
+      }),
     };
   },
   components: { PostCreator, PostForm },

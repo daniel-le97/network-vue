@@ -15,6 +15,7 @@
             v-model="editable.imgUrl"
           />
           <label for="floatingPassword">Share an Image!</label>
+          <img :src="editable.imgUrl" alt="" />
         </div>
         <div class="form-floating mt-2">
           <textarea
@@ -27,9 +28,6 @@
           <label for="floatingTextarea2">Comment</label>
         </div>
         <div class="mt-2">
-          <button class="btn btn-warning me-2" v-if="user.isAuthenticated">
-            cancel
-          </button>
           <button
             type="submit"
             class="btn btn-primary"
@@ -77,4 +75,8 @@ export default {
 
 <!-- v-if="!user.isAuthenticated" -->
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.btn:hover {
+  transform: scale(1.1);
+}
+</style>

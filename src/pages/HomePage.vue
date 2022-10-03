@@ -37,7 +37,7 @@ export default {
     async function getPosts() {
       try {
         await postsService.getPosts();
-        postsService.getLikes();
+        // postsService.getLikes();
       } catch (error) {
         Pop.error(error, "[getPosts]");
       }
@@ -104,5 +104,8 @@ export default {
       object-position: center;
     }
   }
+}
+.btn:hover {
+  transform: scale(1.03);
 }
 </style>
