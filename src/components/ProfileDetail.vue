@@ -7,7 +7,7 @@
       <img
         :src="profile.picture"
         :alt="profile.name"
-        class="img-fluid  rounded-circle elevation-5"
+        class="img-fluid rounded-circle elevation-5 none"
       />
     </div>
     <div>
@@ -27,14 +27,13 @@
         <a :href="profile.resume" v-if="profile.resume"
           ><i class="mdi mdi-note fs-1 text-shadow"></i
         ></a>
-        
+        <span>{{ profile.class }}</span>
       </div>
     </div>
     <div class="text-center text-shadow">
-      <span>{{profile.bio}}</span>
+      <span>{{ profile.bio }}</span>
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -80,5 +79,7 @@ export default {
 
   /* Second Color  in text-shadow is the blur */
 }
-
+.none{
+pointer-events: none;
+}
 </style>

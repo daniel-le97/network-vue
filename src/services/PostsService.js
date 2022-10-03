@@ -11,14 +11,15 @@ class PostsService {
     AppState.posts = [];
     const res = await postServer.get(pageUrl);
     // logger.log(res.data);
-    console.log(res.data.posts);
-    AppState.posts = res.data.posts.map((p) => new Post(p));
+    // console.log(res.data.posts);
+    AppState.postsTwo = res.data.posts.map((p) => new Post(p));
+    AppState.posts = [...AppState.posts, ...AppState.postsTwo];
     AppState.nextPage = res.data.older;
     AppState.previousPage = res.data.newer;
     AppState.totalPages = res.data.totalPages;
 
-    this.getLikes();
     console.log(AppState.posts);
+    await this.getLikes();
     // console.log(AppState.nextPage);
     // console.log(AppState.previousPage);
     // logger.log(AppState.posts , 'getPost()');
@@ -39,23 +40,35 @@ class PostsService {
     AppState.posts = newPosts;
   }
   async likePost(id) {
-    const res = await api.post(`/api/posts/${id}/like`, id);
+    const res = await api.post(`/api/posts/${id}/like`);
     console.log(res.data);
-   
-    let thisPost = AppState.posts.findIndex((p) => p.id == id);
-    let like = new Post(res.data);
-    console.log(like);
 
-    AppState.posts.splice(thisPost, 1, like);
-    this.getLikes();
+    let thisPost = AppState.posts.findIndex((p) => p.id == id);
+    // let like = new Post(res.data);
+    // console.log(like);
+
+    AppState.posts.splice(thisPost, 1, new Post(res.data));
+    await this.getLikes();
+    // AppState.posts.forEach((p) => {
+    //   let thisId = AppState.account.id;
+    //   p.likes.forEach((l) => {
+    //     if (l.id == thisId) {
+    //       p.likedAlready = true;
+    //     }
+    //   });
+    //   console.log(AppState.posts);
+    // });
+    // this.getLikes();
   }
   async getLikes() {
     AppState.posts.forEach((p) => {
+      let thisId = AppState.account.id;
       p.likes.forEach((l) => {
-        if (l.creatorId == AppState.account.id) {
+        if (l.id == thisId) {
           p.likedAlready = true;
         }
       });
+      // console.log(AppState.posts);
     });
   }
   async getPostsBySearchTerm(term, page = "") {
@@ -72,7 +85,7 @@ class PostsService {
     AppState.previousPage = res.data.newer;
     AppState.totalPages = res.data.totalPages;
   }
-  async testFunction(term){
+  async testFunction(term) {
     console.log(term);
   }
   // // async editPost(id){
@@ -80,7 +93,7 @@ class PostsService {
   // //   AppState.activePost = new Post(res.data)
   // //   console.log(AppState.activePost)
   // this would still need a  handleSubmit to put
-  
+
   // // }
 }
 export const postsService = new PostsService();

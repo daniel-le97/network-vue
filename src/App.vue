@@ -10,18 +10,19 @@
     <main>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-2  d-none d-md-block p-0">
+          <div class="col-2 d-none d-md-block p-0">
             <div class="bg-dark">
-               <ProfileDetail :profile="account" v-if="account"/>
+              <ProfileDetail :profile="account" v-if="account" />
+              <div v-else><span class="fs-1 fw-bold text-light">Please Log In</span>
+              </div>
             </div>
           </div>
-          <div class="col-md-8  p-0">
+          <div class="col-md-8 p-0">
             <router-view />
           </div>
           <div class="col-2 p-0 d-none d-md-block">
             <div class="">
-
-              <Lads v-for="l in lads" :lad="l"/>
+              <Lads v-for="l in lads" :lad="l" />
             </div>
           </div>
         </div>
@@ -46,7 +47,7 @@ export default {
   setup() {
     async function getLads() {
       try {
-        await ladsService.getLads()
+        await ladsService.getLads();
       } catch (error) {
         Pop.error(error, "[GetLads]");
       }
@@ -65,7 +66,7 @@ export default {
     return {
       appState: computed(() => AppState),
       lads: computed(() => AppState.lads),
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
     };
   },
   components: { Navbar, Login, Login1, Lads, ProfileDetail },

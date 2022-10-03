@@ -7,15 +7,15 @@ export class Post {
     this.body = data.body;
     this.imgUrl = data.imgUrl;
     this.likesLength = data.likes.length;
-    this.likes = data.likes.map(l => new Like(l))
+    this.likes = data.likes.map((l) => new Like(l));
     this.createdAt = new Date(data.createdAt).toLocaleDateString("en-US", {
       month: "short",
-      day: 'numeric',
+      day: "numeric",
       year: "numeric",
-      hour: 'numeric',
-      minute: 'numeric'
+      hour: "numeric",
+      minute: "numeric",
     });
     this.creator = new Account(data.creator);
-    this.likedAlready = data.likedAlready
+    this.likedAlready = data.likedAlready || false;
   }
 }

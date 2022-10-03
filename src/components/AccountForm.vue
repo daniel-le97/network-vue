@@ -53,6 +53,15 @@
             />
           </div>
           <div>
+            <label for="class">Class:</label>
+            <input
+              type="text"
+              class="form-control"
+              v-model="editable.class"
+              name="class"
+            />
+          </div>
+          <div>
             <label for="resume">Resume:</label>
             <input
               type="url"
@@ -115,6 +124,7 @@ export default {
             return;
           }
           await accountService.editAccount(editable.value);
+          
         } catch (error) {
           Pop.error(error, "[handleSubmit]");
         }

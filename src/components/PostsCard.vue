@@ -1,14 +1,13 @@
 <template>
   <div class="card elevation-3 mx-4 my-2" v-if="post">
-    <div class="card-header d-flex justify-content-between ">
-  
+    <div class="card-header d-flex justify-content-between">
       <div class="d-flex align-items-center">
-        <PostCreator :creator="post.creator" class="wide " />
+        <PostCreator :creator="post.creator" class="wide" />
         <!-- <span class="ms-3">{{ post.creator.name }}</span> -->
       </div>
       <div class="dropdown" v-if="account.id == post.creator.id">
         <i
-          class="mdi mdi-delete ms-5 "
+          class="mdi mdi-delete ms-5"
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -21,26 +20,47 @@
       </div>
     </div>
     <div class="card-body">
-      <div class=" mt-2 fw-bold">{{ post.body }}</div>
+      <div class="mt-2 fw-bold">{{ post.body }}</div>
     </div>
-    <img :src="post.imgUrl" @error="newImage" alt="" class="img-fluid rounded elevation-4" v-if="post.imgUrl" />
+    <img
+      :src="post.imgUrl"
+      @error="newImage"
+      alt=""
+      class="img-fluid rounded elevation-4"
+      v-if="post.imgUrl"
+    />
     <div class="card-footer d-flex justify-content-between">
       <span class="align-self-center">{{ post.createdAt }}</span>
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center" v-if="post.likedAlready == true">
         <span class="fs-4">{{ post.likesLength }} </span>
         <button
           class="btn btn-small p-0 border-0"
           type="button"
           :disabled="!user.isAuthenticated"
-          @click="likePost(post.id)"
+          @click="likePost()"
         >
-          <i
-            class="fs-3 text-danger mdi mdi-heart"
-            v-if="post.likedAlready == true"
-          ></i>
-          <i v-else class="mdi mdi-heart fs-3 text-primary"></i>
+          <div>
+            <i class="fs-3 text-danger mdi mdi-heart"></i>
+          </div>
         </button>
       </div>
+      <div
+        class="d-flex align-items-center"
+        v-else-if="post.likedAlready == false"
+      >
+        <span class="fs-4">{{ post.likesLength }} </span>
+        <button
+          class="btn btn-small p-0 border-0"
+          type="button"
+          :disabled="!user.isAuthenticated"
+          @click="likePost()"
+        >
+          <div>
+            <i class="fs-3 text-danger mdi mdi-thumb-down"></i>
+          </div>
+        </button>
+      </div>
+      <div></div>
     </div>
   </div>
 </template>
@@ -69,9 +89,9 @@ export default {
     //   editable.value = { ...AppState.activePost };
     // });
     return {
-       newImage(e) {
-        e.target.src = "/src/assets/img/28B33A1C-9752-47A3-BF8A-F523EFB2408D.png";
-        
+      newImage(e) {
+        e.target.src =
+          "/src/assets/img/28B33A1C-9752-47A3-BF8A-F523EFB2408D.png";
       },
       // editable,
       //  async editPost(id){
@@ -90,9 +110,9 @@ export default {
           Pop.error(error, "[deletePost]");
         }
       },
-      async likePost(id) {
+      async likePost() {
         try {
-          await postsService.likePost(id);
+          await postsService.likePost(props.post.id);
         } catch (error) {
           Pop.error(error, "[likePost]");
         }
@@ -111,8 +131,7 @@ export default {
   top: 12px;
   left: 13px;
 }
-img{
+img {
   height: 25rem;
 }
-
 </style>

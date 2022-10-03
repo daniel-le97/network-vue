@@ -64,6 +64,7 @@ export default {
     async function getPostsByProfileId() {
       try {
         await profilesService.getPostsByProfileId(route.params.id);
+        await postsService.getLikes()
       } catch (error) {
         Pop.error(error, "[GettingPostsByProfileId]");
       }

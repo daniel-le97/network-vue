@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-center gap-5 mt-3">
+  <div class="d-flex justify-content-center gap-5 mt-3 sticky">
     <button
       class="btn btn-info"
       @click="changePage(previousPage)"
@@ -16,7 +16,7 @@
     </button>
   </div>
   <div>
-    <PostForm v-if="user"/>
+    <PostForm v-if="user" />
   </div>
   <div>
     <PostsCard v-for="p in posts" :post="p" />
@@ -37,12 +37,23 @@ export default {
     async function getPosts() {
       try {
         await postsService.getPosts();
+        await postsService.getLikes();
       } catch (error) {
         Pop.error(error, "[getPosts]");
       }
     }
+  //  function handleScroll(){
+  //       if (
+  //         window.scrollY + window.innerHeight >=
+  //         document.body.scrollHeight - 50
+  //       ) {
+  //           this.getPosts();
+  //         window.screenTop;
+  //       }
+  //     }
     onMounted(() => {
       getPosts();
+      // handleScroll()
     });
     return {
       user: computed(() => AppState.user),
@@ -50,6 +61,17 @@ export default {
       nextPage: computed(() => AppState.nextPage),
       previousPage: computed(() => AppState.previousPage),
       profiles: computed(() => AppState.profiles),
+      // handleScroll() {
+      //   if (
+      //     window.scrollY + window.innerHeight >=
+      //     document.body.scrollHeight - 50
+      //   ) {
+      //     this.getPosts();
+      //     window.screenTop;
+      //   }
+      // },
+
+
       async changePage(pageUrl) {
         try {
           await postsService.getPosts(pageUrl);

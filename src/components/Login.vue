@@ -1,7 +1,7 @@
 <template>
   <span class="navbar-text">
     <button
-      class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
+      class="btn selectable text-primary lighten-30 text-uppercase my-2 my-lg-0"
       @click="login"
       v-if="!user.isAuthenticated"
     >
@@ -62,11 +62,12 @@ import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState";
 import { AuthService } from "../services/AuthService";
+import Pop from "../utils/Pop.js";
 import ProfileDetail from "./ProfileDetail.vue";
 export default {
   setup() {
     const route = useRoute();
-    const router = useRouter()
+    const router = useRouter();
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
@@ -76,16 +77,18 @@ export default {
       async logout() {
         AuthService.logout({ returnTo: window.location.origin });
       },
-       async sendToProfile(){
+      async sendToProfile() {
         try {
-            await router.push({name:'Profile', params: { id: this.account.id } })
-          } catch (error) {
-            console.error('[]',error)
-            Pop.error(error)
-          }
-       
+          await router.push({
+            name: "Profile",
+            params: { id: this.account.id },
+          });
+          window.location.reload();
+        } catch (error) {
+          console.error("[]", error);
+          Pop.error(error);
         }
-      
+      },
     };
   },
   components: { ProfileDetail },

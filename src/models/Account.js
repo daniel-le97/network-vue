@@ -12,6 +12,7 @@ export class Account {
     this.linkedin = data.linkedin;
     this.resume = data.resume;
     this.coverImg = data.coverImg;
+    this.class = data.class
     // TODO add additional properties if needed
   }
 }
