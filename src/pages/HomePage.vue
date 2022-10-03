@@ -37,20 +37,20 @@ export default {
     async function getPosts() {
       try {
         await postsService.getPosts();
-        await postsService.getLikes();
+        postsService.getLikes();
       } catch (error) {
         Pop.error(error, "[getPosts]");
       }
     }
-  //  function handleScroll(){
-  //       if (
-  //         window.scrollY + window.innerHeight >=
-  //         document.body.scrollHeight - 50
-  //       ) {
-  //           this.getPosts();
-  //         window.screenTop;
-  //       }
-  //     }
+    //  function handleScroll(){
+    //       if (
+    //         window.scrollY + window.innerHeight >=
+    //         document.body.scrollHeight - 50
+    //       ) {
+    //           this.getPosts();
+    //         window.screenTop;
+    //       }
+    //     }
     onMounted(() => {
       getPosts();
       // handleScroll()
@@ -70,7 +70,6 @@ export default {
       //     window.screenTop;
       //   }
       // },
-
 
       async changePage(pageUrl) {
         try {

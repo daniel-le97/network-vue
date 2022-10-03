@@ -1,7 +1,7 @@
 <template>
   <span class="navbar-text">
     <button
-      class="btn selectable text-primary lighten-30 text-uppercase my-2 my-lg-0"
+      class="btn selectable btn-outline-light text-primary lighten-30 text-uppercase my-2 my-lg-0"
       @click="login"
       v-if="!user.isAuthenticated"
     >
@@ -106,7 +106,9 @@ export default {
 .dropdown-menu.show {
   transform: scale(1);
 }
-
+*:hover {
+  transform: scale(1.03);
+}
 .hoverable {
   cursor: pointer;
 }

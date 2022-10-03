@@ -27,10 +27,18 @@
           <label for="floatingTextarea2">Comment</label>
         </div>
         <div class="mt-2">
-          <button class="btn btn-warning me-2" v-if="user.isAuthenticated">cancel</button>
-          <button type="submit" class="btn btn-primary " v-if="user.isAuthenticated">submit</button>
-          <button  class="btn btn-primary" v-else @click="login">
-            login
+          <button class="btn btn-warning me-2" v-if="user.isAuthenticated">
+            cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            v-if="user.isAuthenticated"
+          >
+            submit
+          </button>
+          <button class="btn btn-primary" v-else @click="login">
+            login to post
           </button>
         </div>
       </form>
@@ -53,15 +61,14 @@ export default {
       editable,
       async handleSubmit() {
         try {
-          
           await postsService.createPost(editable.value);
-          editable.value = {}
+          editable.value = {};
         } catch (error) {
           Pop.error(error, "[handleSubmit]");
         }
       },
       async login() {
-        AuthService.loginWithPopup()
+        AuthService.loginWithPopup();
       },
     };
   },

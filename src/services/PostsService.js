@@ -18,8 +18,8 @@ class PostsService {
     AppState.previousPage = res.data.newer;
     AppState.totalPages = res.data.totalPages;
 
-    console.log(AppState.posts);
-    await this.getLikes();
+    // console.log(AppState.posts);
+    this.getLikes();
     // console.log(AppState.nextPage);
     // console.log(AppState.previousPage);
     // logger.log(AppState.posts , 'getPost()');
@@ -48,7 +48,7 @@ class PostsService {
     // console.log(like);
 
     AppState.posts.splice(thisPost, 1, new Post(res.data));
-    await this.getLikes();
+    this.getLikes();
     // AppState.posts.forEach((p) => {
     //   let thisId = AppState.account.id;
     //   p.likes.forEach((l) => {
@@ -60,7 +60,7 @@ class PostsService {
     // });
     // this.getLikes();
   }
-  async getLikes() {
+  getLikes() {
     AppState.posts.forEach((p) => {
       let thisId = AppState.account.id;
       p.likes.forEach((l) => {

@@ -24,14 +24,14 @@
     </div>
     <img
       :src="post.imgUrl"
-      @error="newImage"
+      @error="newImage()"
       alt=""
       class="img-fluid rounded elevation-4"
       v-if="post.imgUrl"
     />
     <div class="card-footer d-flex justify-content-between">
       <span class="align-self-center">{{ post.createdAt }}</span>
-      <div class="d-flex align-items-center" v-if="post.likedAlready == true">
+      <div class="d-flex align-items-end" v-if="post.likedAlready == true">
         <span class="fs-4">{{ post.likesLength }} </span>
         <button
           class="btn btn-small p-0 border-0"
@@ -40,12 +40,12 @@
           @click="likePost()"
         >
           <div>
-            <i class="fs-3 text-danger mdi mdi-heart"></i>
+            <i class="fs-3 text-danger mdi mdi-heart-multiple"></i>
           </div>
         </button>
       </div>
       <div
-        class="d-flex align-items-center"
+        class="d-flex align-items-end"
         v-else-if="post.likedAlready == false"
       >
         <span class="fs-4">{{ post.likesLength }} </span>
@@ -56,7 +56,7 @@
           @click="likePost()"
         >
           <div>
-            <i class="fs-3 text-danger mdi mdi-thumb-down"></i>
+            <i class="fs-3 text-danger mdi mdi-heart"></i>
           </div>
         </button>
       </div>
@@ -88,10 +88,11 @@ export default {
     //  watchEffect(() => {
     //   editable.value = { ...AppState.activePost };
     // });
+
     return {
       newImage(e) {
         e.target.src =
-          "/src/assets/img/28B33A1C-9752-47A3-BF8A-F523EFB2408D.png";
+          "./src/assets/img/28B33A1C-9752-47A3-BF8A-F523EFB2408D.png";
       },
       // editable,
       //  async editPost(id){
@@ -113,6 +114,7 @@ export default {
       async likePost() {
         try {
           await postsService.likePost(props.post.id);
+          postsService.getLikes();
         } catch (error) {
           Pop.error(error, "[likePost]");
         }
