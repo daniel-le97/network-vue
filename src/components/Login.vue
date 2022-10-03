@@ -22,48 +22,74 @@
             height="40"
             class="rounded"
           />
-          <span class="mx-3 text-success lighten-30">{{ account.name || user.name }}</span>
+          <span class="mx-3 text-success lighten-30">{{
+            account.name || user.name
+          }}</span>
         </div>
       </div>
-      <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">
+      <div
+        class="dropdown-menu p-0 list-group w-100"
+        aria-labelledby="authDropdown"
+      >
         <router-link :to="{ name: 'Account' }">
           <div class="list-group-item list-group-item-action hoverable">
             Manage Account
           </div>
         </router-link>
-        <div class="list-group-item list-group-item-action hoverable text-danger" @click="logout">
+        <div
+          class="list-group-item list-group-item-action hoverable"
+          @click="sendToProfile()"
+        >
+          Profile
+        </div>
+        <div
+          class="list-group-item list-group-item-action hoverable text-danger"
+          @click="logout"
+        >
           <i class="mdi mdi-logout"></i>
           logout
         </div>
       </div>
     </div>
   </span>
-  <div class="mt-5">
-    <profile-detail :profile="account" v-if="account"/>
-
-  </div>
+  <!-- <div class="mt-5">
+    <profile-detail :profile="account" v-if="account" />
+  </div> -->
 </template>
 
 <script>
-import { computed } from 'vue'
-import { AppState } from '../AppState'
-import { AuthService } from '../services/AuthService'
-import ProfileDetail from './ProfileDetail.vue'
+import { computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { AppState } from "../AppState";
+import { AuthService } from "../services/AuthService";
+import ProfileDetail from "./ProfileDetail.vue";
 export default {
-    setup() {
-        return {
-            user: computed(() => AppState.user),
-            account: computed(() => AppState.account),
-            async login() {
-                AuthService.loginWithPopup();
-            },
-            async logout() {
-                AuthService.logout({ returnTo: window.location.origin });
-            }
-        };
-    },
-    components: { ProfileDetail }
-}
+  setup() {
+    const route = useRoute();
+    const router = useRouter()
+    return {
+      user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
+      async login() {
+        AuthService.loginWithPopup();
+      },
+      async logout() {
+        AuthService.logout({ returnTo: window.location.origin });
+      },
+       async sendToProfile(){
+        try {
+            await router.push({name:'Profile', params: { id: this.account.id } })
+          } catch (error) {
+            console.error('[]',error)
+            Pop.error(error)
+          }
+       
+        }
+      
+    };
+  },
+  components: { ProfileDetail },
+};
 </script>
 
 <style lang="scss" scoped>

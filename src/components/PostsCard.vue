@@ -1,19 +1,19 @@
 <template>
   <div class="card elevation-3 mx-4 my-2" v-if="post">
-    <div class="card-header d-flex justify-content-between">
+    <div class="card-header d-flex justify-content-between ">
+  
       <div class="d-flex align-items-center">
-        <PostCreator :creator="post.creator" />
-        <span class="ms-3">{{ post.creator.name }}</span>
+        <PostCreator :creator="post.creator" class="wide " />
+        <!-- <span class="ms-3">{{ post.creator.name }}</span> -->
       </div>
-      <div class="dropdown" >
+      <div class="dropdown" v-if="account.id == post.creator.id">
         <i
-          class="mdi mdi-pencil-off"
+          class="mdi mdi-delete ms-5 "
           role="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         ></i>
         <ul class="dropdown-menu">
-         
           <li>
             <a class="dropdown-item" @click="deletePost(post.id)">Delete</a>
           </li>
@@ -21,11 +21,9 @@
       </div>
     </div>
     <div class="card-body">
-      <div class="w-100 h-25">
-        <img :src="post.imgUrl" alt="" class="img-fluid rounded elevation-4" />
-      </div>
-      <div class="">{{ post.body }}</div>
+      <div class=" mt-2 fw-bold">{{ post.body }}</div>
     </div>
+    <img :src="post.imgUrl" @error="newImage" alt="" class="img-fluid rounded elevation-4" v-if="post.imgUrl" />
     <div class="card-footer d-flex justify-content-between">
       <span class="align-self-center">{{ post.createdAt }}</span>
       <div class="d-flex align-items-center">
@@ -45,7 +43,6 @@
       </div>
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -58,7 +55,6 @@ import Pop from "../utils/Pop.js";
 import PostCreator from "./PostCreator.vue";
 import { ref, watchEffect } from "vue";
 import PostForm from "./PostForm.vue";
-
 
 export default {
   props: {
@@ -73,6 +69,10 @@ export default {
     //   editable.value = { ...AppState.activePost };
     // });
     return {
+       newImage(e) {
+        e.target.src = "/src/assets/img/28B33A1C-9752-47A3-BF8A-F523EFB2408D.png";
+        
+      },
       // editable,
       //  async editPost(id){
       //   try {
@@ -81,9 +81,7 @@ export default {
       //       console.error('[]',error)
       //       Pop.error(error)
       //     }
-        
-        
-       
+
       //   },
       async deletePost(id) {
         try {
@@ -101,7 +99,7 @@ export default {
       },
       user: computed(() => AppState.user),
       posts: computed(() => AppState.posts),
-      account: () => AppState.account,
+      account: computed(() => AppState.account),
     };
   },
   components: { PostCreator, PostForm },
@@ -113,4 +111,8 @@ export default {
   top: 12px;
   left: 13px;
 }
+img{
+  height: 25rem;
+}
+
 </style>

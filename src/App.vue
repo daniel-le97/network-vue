@@ -11,8 +11,8 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-2  d-none d-md-block p-0">
-            <div class="mt-2 bg-dark">
-              <Login />
+            <div class="bg-dark">
+               <ProfileDetail :profile="account" v-if="account"/>
             </div>
           </div>
           <div class="col-md-8  p-0">
@@ -40,6 +40,7 @@ import Lads from "./components/Lads.vue";
 import Pop from "./utils/Pop.js";
 import { ladsService } from "./services/LadsService.js";
 import { postsService } from "./services/PostsService.js";
+import ProfileDetail from "./components/ProfileDetail.vue";
 
 export default {
   setup() {
@@ -64,9 +65,10 @@ export default {
     return {
       appState: computed(() => AppState),
       lads: computed(() => AppState.lads),
+      account: computed(() => AppState.account)
     };
   },
-  components: { Navbar, Login, Login1, Lads },
+  components: { Navbar, Login, Login1, Lads, ProfileDetail },
 };
 </script>
 <style lang="scss">

@@ -27,7 +27,7 @@ class ProfilesService {
         query: term,
       },
     });
-    console.log(res.data);
+    // console.log(res.data);
     AppState.profiles = res.data.map((p) => new Account(p));
     console.log(AppState.profiles);
   }

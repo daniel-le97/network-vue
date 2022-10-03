@@ -12,7 +12,8 @@ export class Post {
       month: "short",
       day: 'numeric',
       year: "numeric",
-      hour: 'numeric'
+      hour: 'numeric',
+      minute: 'numeric'
     });
     this.creator = new Account(data.creator);
     this.likedAlready = data.likedAlready

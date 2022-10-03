@@ -1,13 +1,13 @@
 <template>
   <div
-    class="cover-img"
+    class="cover-img d-flex flex-column justify-content-center align-items-center"
     :style="{ backgroundImage: `url(${profile.coverImg})` }"
   >
     <div class="d-flex justify-content-center" v-if="profile.picture">
       <img
         :src="profile.picture"
         :alt="profile.name"
-        class="img-fluid profile-img rounded-circle elevation-5"
+        class="img-fluid  rounded-circle elevation-5"
       />
     </div>
     <div>
@@ -24,17 +24,17 @@
         <a href="https://boisecodeworks.com/" v-if="profile.graduated == true"
           ><i class="mdi mdi-school fs-1 text-shadow"></i
         ></a>
-        <i class="mdi mdi-school fs-1" v-if="profile.resume"></i>
+        <a :href="profile.resume" v-if="profile.resume"
+          ><i class="mdi mdi-note fs-1 text-shadow"></i
+        ></a>
+        
       </div>
     </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-8" v-if="profile.id != account.id">
-        {{ profile.bio }}
-      </div>
+    <div class="text-center text-shadow">
+      <span>{{profile.bio}}</span>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -59,8 +59,10 @@ export default {
 
 <style lang="scss" scoped>
 .cover-img {
-  height: 70vh;
+  height: auto;
+  min-height: 70vh;
   padding: 3rem;
+  border: 1px solid rgb(242, 242, 242);
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
@@ -72,10 +74,11 @@ export default {
 
 .text-shadow {
   color: aliceblue;
-  text-shadow: 1px 1px black, 0px 0px 5px salmon;
+  text-shadow: 2px 2px black, 0px 0px 1px rgb(243, 37, 14);
   font-weight: bold;
   letter-spacing: 0.08rem;
 
   /* Second Color  in text-shadow is the blur */
 }
+
 </style>

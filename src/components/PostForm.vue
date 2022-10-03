@@ -26,9 +26,9 @@
           ></textarea>
           <label for="floatingTextarea2">Comment</label>
         </div>
-        <div>
-          <button class="btn btn-warning" v-if="user.isAuthenticated">cancel</button>
-          <button type="submit" class="btn btn-primary" v-if="user.isAuthenticated">submit</button>
+        <div class="mt-2">
+          <button class="btn btn-warning me-2" v-if="user.isAuthenticated">cancel</button>
+          <button type="submit" class="btn btn-primary " v-if="user.isAuthenticated">submit</button>
           <button  class="btn btn-primary" v-else @click="login">
             login
           </button>
@@ -55,7 +55,7 @@ export default {
         try {
           
           await postsService.createPost(editable.value);
-          editable.value = ''
+          editable.value = {}
         } catch (error) {
           Pop.error(error, "[handleSubmit]");
         }
